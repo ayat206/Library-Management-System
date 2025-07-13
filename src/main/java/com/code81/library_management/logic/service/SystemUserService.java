@@ -8,4 +8,7 @@ public interface SystemUserService {
     SystemUser register(SystemUser systemUser); //encryption + register
     List<SystemUser> getAllUsers();
     SystemUser getUserById(Long id);
+    SystemUser updateUser(Long id, SystemUser updatedUser);
+    void deleteUserById(Long id);
+
 }

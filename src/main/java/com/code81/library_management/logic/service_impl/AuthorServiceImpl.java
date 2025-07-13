@@ -37,9 +37,18 @@ public class AuthorServiceImpl implements AuthorService {
     @Override
     public Author updateAuthor(Long id, Author author) {
         Author existing = getAuthorById(id);
-        existing.setName(author.getName());
+
+        if (author.getName() != null && !author.getName().isBlank()) {
+            existing.setName(author.getName());
+        }
+
+        if (author.getBio() != null && !author.getBio().isBlank()) {
+            existing.setBio(author.getBio());
+        }
+
         return authorRepository.save(existing);
     }
+
 
     @Override
     public void deleteAuthor(Long id) {

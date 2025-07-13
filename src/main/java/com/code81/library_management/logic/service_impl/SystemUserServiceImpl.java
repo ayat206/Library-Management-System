@@ -39,4 +39,31 @@ public class SystemUserServiceImpl implements SystemUserService {
         return systemUserRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("User not found"));
     }
+
+    @Override
+    public SystemUser updateUser(Long id, SystemUser updatedUser) {
+        SystemUser existingUser = systemUserRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("User not found"));
+
+        existingUser.setFullName(updatedUser.getFullName());
+        existingUser.setUsername(updatedUser.getUsername());
+        existingUser.setRole(updatedUser.getRole());
+
+        if (updatedUser.getPasswordHash() != null && !updatedUser.getPasswordHash().isBlank()) {
+            String hashedPassword = passwordEncoder.encode(updatedUser.getPasswordHash());
+            existingUser.setPasswordHash(hashedPassword);
+        }
+
+        return systemUserRepository.save(existingUser);
+    }
+
+
+    @Override
+    public void deleteUserById(Long id) {
+        if (!systemUserRepository.existsById(id)) {
+            throw new RuntimeException("User not found");
+        }
+        systemUserRepository.deleteById(id);
+    }
+
 }

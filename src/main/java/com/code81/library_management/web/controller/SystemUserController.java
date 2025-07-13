@@ -30,4 +30,15 @@ public class SystemUserController {
         return systemUserService.getUserById(id);
     }
 
+    @PutMapping("/{id}")
+    public SystemUser updateUser(@PathVariable Long id, @RequestBody SystemUser updatedUser) {
+        return systemUserService.updateUser(id, updatedUser);
+    }
+
+
+    @DeleteMapping("/{id}")
+    public void deleteUser(@PathVariable Long id) {
+        systemUserService.deleteUserById(id);
+    }
+
 }

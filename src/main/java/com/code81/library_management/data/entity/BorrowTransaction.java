@@ -12,11 +12,11 @@ public class BorrowTransaction {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    //da li bista3eer l book
+    //l member y2dr y3ml aktr mn transaction bs kol borrow transaction associated b member wa7d
     @ManyToOne
     private Member member;
 
-    //l book li ost3ar
+    //many borrow transaction to one book
     @ManyToOne
     private Book book;
 
@@ -28,6 +28,7 @@ public class BorrowTransaction {
 
     private boolean returned;
 
+    //Many BorrowTransactions → One SystemUser
     @ManyToOne
     @JoinColumn(name = "created_by")
     private SystemUser createdBy;

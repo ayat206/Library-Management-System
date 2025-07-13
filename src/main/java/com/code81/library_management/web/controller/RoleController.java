@@ -22,12 +22,6 @@ public class RoleController {
     }
 
 
-    @GetMapping("/{name}")
-    public Role getRoleByName(@PathVariable String name) {
-        return roleService.getRoleByName(name);
-    }
-
-    // كل الـ Roles
     @GetMapping
     public List<Role> getAllRoles() {
         return roleService.getAllRoles();

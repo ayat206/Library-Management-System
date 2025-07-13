@@ -51,24 +51,22 @@ public class SecurityConfig {
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(authz -> authz
 
-                        // Public endpoints (مثل login)
+                        // Public (Unauthenticated)
                         .requestMatchers("/api/auth/**").permitAll()
 
                         // Admin only
-                        .requestMatchers(HttpMethod.POST, "/api/users/**").hasAuthority("Administrator")
-                        .requestMatchers(HttpMethod.PUT, "/api/users/**").hasAuthority("Administrator")
-                        .requestMatchers(HttpMethod.DELETE, "/api/users/**").hasAuthority("Administrator")
+                        .requestMatchers("/api/users/**").hasAuthority("Administrator")
+                        .requestMatchers("/api/roles/**").hasAuthority("Administrator")
+                        .requestMatchers("/api/logs/**").hasAuthority("Administrator")
 
                         // Librarian + Admin
-                       .requestMatchers("/api/books/**").hasAnyAuthority("Administrator", "Librarian")
+                        .requestMatchers("/api/books/**").hasAnyAuthority("Administrator", "Librarian")
                         .requestMatchers("/api/members/**").hasAnyAuthority("Administrator", "Librarian")
 
                         // Staff + Librarian + Admin
                         .requestMatchers("/api/transactions/**").hasAnyAuthority("Administrator", "Librarian", "Staff")
 
-                        // Everyone authenticated can read
-                        .requestMatchers(HttpMethod.GET, "/api/**").authenticated()
-
+                        // Any other request requires authentication
                         .anyRequest().authenticated()
                 )
                 .httpBasic(Customizer.withDefaults())

@@ -39,6 +39,8 @@ public class PublisherServiceImpl implements PublisherService {
     public Publisher updatePublisher(Long id, Publisher updatedPublisher) {
         Publisher existing = getPublisherById(id);
         existing.setName(updatedPublisher.getName());
+        existing.setAddress(updatedPublisher.getName());
+        existing.setWebsite(updatedPublisher.getWebsite());
         return publisherRepository.save(existing);
     }
 
