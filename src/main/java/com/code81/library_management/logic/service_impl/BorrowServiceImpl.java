@@ -101,7 +101,7 @@ public class BorrowServiceImpl implements BorrowService {
     }
 
     @Override
-    public List<BorrowTransactionDTO> getActiveTransactions() {
+    public List<BorrowTransactionDTO> getActiveTransactions() { //get all book li lesa mrg3tsh
         return transactionRepository.findAll()
                 .stream()
                 .filter(tx -> !tx.isReturned())

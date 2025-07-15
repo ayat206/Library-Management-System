@@ -3,10 +3,12 @@ package com.code81.library_management.logic.service_impl;
 import com.code81.library_management.data.entity.SystemUser;
 import com.code81.library_management.data.repository.SystemUserRepository;
 import com.code81.library_management.logic.service.SystemUserService;
+import com.code81.library_management.web.dto.SystemUserDTO;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class SystemUserServiceImpl implements SystemUserService {
@@ -30,14 +32,28 @@ public class SystemUserServiceImpl implements SystemUserService {
     }
 
     @Override
-    public List<SystemUser> getAllUsers() {
-        return systemUserRepository.findAll();
+    public List<SystemUserDTO> getAllUsers() {
+        return systemUserRepository.findAll().stream()
+                .map(user -> new SystemUserDTO(
+                        user.getId(),
+                        user.getUsername(),
+                        user.getFullName(),
+                        user.getRole().getName()
+                ))
+                .collect(Collectors.toList());
     }
 
     @Override
-    public SystemUser getUserById(Long id) {
-        return systemUserRepository.findById(id)
+    public SystemUserDTO getUserById(Long id) {
+        SystemUser user = systemUserRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("User not found"));
+
+        return new SystemUserDTO(
+                user.getId(),
+                user.getUsername(),
+                user.getFullName(),
+                user.getRole().getName()
+        );
     }
 
     @Override

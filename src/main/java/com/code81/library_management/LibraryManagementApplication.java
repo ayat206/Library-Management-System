@@ -18,14 +18,14 @@ public class LibraryManagementApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(LibraryManagementApplication.class, args);
 	}
-
+//
 //	@Bean
 //	public CommandLineRunner updatePassword(SystemUserRepository userRepo, PasswordEncoder encoder) {
 //		return args -> {
 //			Optional<SystemUser> optionalUser = userRepo.findByUsername("staff1");
 //			if (optionalUser.isPresent()) {
 //				SystemUser user = optionalUser.get();
-//				user.setPasswordHash(encoder.encode("admin123"));
+//				user.setPasswordHash(encoder.encode("password"));
 //				userRepo.save(user);
 //				System.out.println("Password updated successfully!");
 //			} else {

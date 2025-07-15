@@ -32,19 +32,6 @@ public class SecurityConfig {
         return authBuilder.build();
     }
 
-//    @Bean
-//    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-//        http
-//                .csrf(csrf -> csrf.disable())
-//                .authorizeHttpRequests(authz -> authz
-//                        .requestMatchers("/api/users/**").permitAll()
-//                        .anyRequest().authenticated()
-//                )
-//                .httpBasic(Customizer.withDefaults())
-//                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
-//        return http.build();
-//    }
-
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
@@ -62,6 +49,10 @@ public class SecurityConfig {
                         // Librarian + Admin
                         .requestMatchers("/api/books/**").hasAnyAuthority("Administrator", "Librarian")
                         .requestMatchers("/api/members/**").hasAnyAuthority("Administrator", "Librarian")
+                        .requestMatchers("/api/publishers/**").hasAnyAuthority("Administrator", "Librarian")
+                        .requestMatchers("/api/authors/**").hasAnyAuthority("Administrator", "Librarian")
+                        .requestMatchers("/api/categories/**").hasAnyAuthority("Administrator", "Librarian")
+
 
                         // Staff + Librarian + Admin
                         .requestMatchers("/api/transactions/**").hasAnyAuthority("Administrator", "Librarian", "Staff")

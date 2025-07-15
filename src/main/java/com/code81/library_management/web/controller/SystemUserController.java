@@ -2,6 +2,7 @@ package com.code81.library_management.web.controller;
 
 import com.code81.library_management.data.entity.SystemUser;
 import com.code81.library_management.logic.service.SystemUserService;
+import com.code81.library_management.web.dto.SystemUserDTO;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -21,12 +22,12 @@ public class SystemUserController {
     }
 
     @GetMapping
-    public List<SystemUser> getAllUsers() {
+    public List<SystemUserDTO> getAllUsers() {
         return systemUserService.getAllUsers();
     }
 
     @GetMapping("/{id}")
-    public SystemUser getUserById(@PathVariable Long id) {
+    public SystemUserDTO getUserById(@PathVariable Long id) {
         return systemUserService.getUserById(id);
     }
 
